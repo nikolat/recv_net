@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
@@ -8,12 +7,12 @@ using System.Threading;
 
 namespace recv_net
 {
-	class ClassResv
+    class ClassResv
 	{
 		// 里々からの情報を送信するイベントの定義
 		public class RecvInfEventArgs : EventArgs
 		{
-			public String RecvInf;
+			public string RecvInf;
 		}
 		public delegate void RecvEventHandler(object sender, RecvInfEventArgs e);
 		public event RecvEventHandler RecvEvt;
@@ -26,7 +25,7 @@ namespace recv_net
 		}
 
 		// ウィンドウクラスの名前
-		private const String ClassName = "れしば";
+		private const string ClassName = "れしば";
 
 		// ウィンドウクラス登録API
 		private delegate int D_WNDPROC(int hWnd, int wMsg, int wParam, int lParam);
@@ -43,7 +42,7 @@ namespace recv_net
 			public int hCursor;             // カーソルのハンドル
 			public int hbrBackground;       // ウィンドウ背景のハンドル
 			public int lpszMenuName;        // メニューの名前
-			public String lpszClassName;    // ウィンドウクラスの名前
+			public string lpszClassName;    // ウィンドウクラスの名前
 			public int hIconSm;             // 小さいアイコンのハンドル
 		};
 		[DllImport("user32.dll", EntryPoint = "RegisterClassExA")]
@@ -52,8 +51,8 @@ namespace recv_net
 		// ウィンドウ作成API
 		[DllImport("user32.dll", EntryPoint = "CreateWindowExA")]
 		private static extern int CreateWindowEx(
-			int dwExStyle, String lpClassName,
-			String lpWindowName, int dwStyle,
+			int dwExStyle, string lpClassName,
+            string lpWindowName, int dwStyle,
 			int X, int Y, int nWidth, int nHeight,
 			int hWndParent, int hMenu,
 			int hInstance, int lpParam);
@@ -98,7 +97,7 @@ namespace recv_net
 		[StructLayout(LayoutKind.Sequential)]
 		private struct COPYDATASTRUCT
 		{
-		    public IntPtr dwData;
+			public IntPtr dwData;
 			public int cbData;
 			public IntPtr lpData;
 		};
