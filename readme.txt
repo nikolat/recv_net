@@ -1,38 +1,71 @@
-
-  「れしば.NET」について
-
-■これは何？
+========================================================================
+【ソフト名称】れしば.NET
+【 制 作 者 】Don
+【 動作環境 】Windows 10 21H2 + SSP/2.5.57 + 里々/Mc163-3
+【 タ イ プ 】SHIORIログビューア
+【 取扱種別 】フリーウェア
+【 配布月日 】2012/10/27
+【 配 布 元 】http://nikolat.herokuapp.com/
+【  備  考  】後述
+========================================================================
+■概要
 
   「里々」のログビューア「れしば」・「コンソールれしば」のC#.NET版です。
+  動作には.NET Framework 2.0以上が必要となります。
 
   「電気で動くうにゅう・廃屋の夏」（「れしば」配布元）
      http://ukgk.s34.xrea.com/poskoma/
-  「伺か関連のいろいろ」（「コンソールれしば」配布元）
+  「伺か関連のいろいろ」（「コンソールれしば」配布元）（※配布元消失）
      http://faerie.sakura.ne.jp/npw/others/
+
+■使用方法
+
+  「れしば」・「コンソールれしば」と同じです。
+  「れしば」設定メニュー内「受付条件」のみ、意味が分からないので無効化しています。
 
 ■参考にしたもの
 
+  下記のサイトを参考にさせていただきました。
+  ありがとうございます。
+
   「NonSoft - WMPで再生中の曲のタイトルを取得するサンプル(C#.NET)」
-    http://nonsoft.la.coocan.jp/SoftSample/CS.NET/SampleWmpPlaying.html
+      http://nonsoft.la.coocan.jp/SoftSample/CS.NET/SampleWmpPlaying.html
   「Ｃ＃コード断片/共通/WM_COPYDATAを受ける - Ukiwiki」
-    http://ukiya.sakura.ne.jp/index.php?%EF%BC%A3%EF%BC%83%E3%82%B3%E3%83%BC%E3%83%89%E6%96%AD%E7%89%87%2F%E5%85%B1%E9%80%9A%2FWM_COPYDATA%E3%82%92%E5%8F%97%E3%81%91%E3%82%8B
+      http://ukiya.sakura.ne.jp/index.php?%EF%BC%A3%EF%BC%83%E3%82%B3%E3%83%BC%E3%83%89%E6%96%AD%E7%89%87%2F%E5%85%B1%E9%80%9A%2FWM_COPYDATA%E3%82%92%E5%8F%97%E3%81%91%E3%82%8B
   「EZ-NET： アプリケーションの二重起動を防止する」
-    http://program.station.ez-net.jp/special/visual_studio/csharp/2005.mutex.asp
+      http://program.station.ez-net.jp/special/visual_studio/csharp/2005.mutex.asp
   「雑記」(あずまや。)
-    http://yellow.ribbon.to/~azumaya/note2004_02.php
+      http://yellow.ribbon.to/~azumaya/note2004_02.php
   「Win32APIのCreateWindowExでウィンドウ生成に失敗する時の対処法 C# - Qiita」
-    https://qiita.com/mujurin/items/e3c079422972a869d3c6
+      https://qiita.com/mujurin/items/e3c079422972a869d3c6
 
-  ほぼ丸コピです。流用したコード片の著作権は上記参考元に帰属します。ライセンス不明なので気をつけて下さい。
-  「れしば.NET」自身のライセンスは、流用元のライセンスに矛盾を生じない限りにおいてNYSLを適用します。
+■ライセンス
 
-  NYSL
-    http://www.kmonos.net/nysl/
+  ライセンスは「NYSL Version 0.9982」です。
+    NYSL
+      http://www.kmonos.net/nysl/
 
-■作った人
+A. 本ソフトウェアは Everyone'sWare です。このソフトを手にした一人一人が、
+   ご自分の作ったものを扱うのと同じように、自由に利用することが出来ます。
 
-  Don
+  A-1. フリーウェアです。作者からは使用料等を要求しません。
+  A-2. 有料無料や媒体の如何を問わず、自由に転載・再配布できます。
+  A-3. いかなる種類の 改変・他プログラムでの利用 を行っても構いません。
+  A-4. 変更したものや部分的に使用したものは、あなたのものになります。
+       公開する場合は、あなたの名前の下で行って下さい。
 
-  「すくりや」
-    http://nikolat.herokuapp.com/
+B. このソフトを利用することによって生じた損害等について、作者は
+   責任を負わないものとします。各自の責任においてご利用下さい。
+
+C. 著作者人格権は Don に帰属します。著作権は放棄します。
+
+D. 以上の３項は、ソース・実行バイナリの双方に適用されます。
+
+■更新履歴
+
+2012/10/27  Ver0.1  ・新規作成
+2012/10/28  Ver0.2  ・多重起動防止機能追加
+2012/10/29  Ver0.3  ・コンソール版追加
+2013/09/15          ・何か修正したらしいが忘れた
+2022/01/26  Ver0.4  ・何故か動かなくなっていたのを何とか動くようにした
 
