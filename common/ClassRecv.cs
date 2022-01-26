@@ -33,17 +33,17 @@ namespace recv_net
 		private struct WNDCLASSEX
 		{
 			public int cbSize;              // 構造体サイズ
-			public int style;               // スタイル
+			public uint style;               // スタイル
 			public D_WNDPROC lpfnWndProc;   // ウィンドウ処理関数
 			public int cbClsExtra;          // 拡張情報1
 			public int cbWndExtra;          // 拡張情報2
 			public int hInstance;           // インスタンのスハンドル
-			public int hIcon;               // アイコンのハンドル
-			public int hCursor;             // カーソルのハンドル
-			public int hbrBackground;       // ウィンドウ背景のハンドル
+			public IntPtr hIcon;               // アイコンのハンドル
+			public IntPtr hCursor;             // カーソルのハンドル
+			public IntPtr hbrBackground;       // ウィンドウ背景のハンドル
 			public int lpszMenuName;        // メニューの名前
 			public string lpszClassName;    // ウィンドウクラスの名前
-			public int hIconSm;             // 小さいアイコンのハンドル
+			public IntPtr hIconSm;             // 小さいアイコンのハンドル
 		};
 		[DllImport("user32.dll", EntryPoint = "RegisterClassExA")]
 		private static extern int RegisterClassEx(ref WNDCLASSEX wcex);
@@ -151,6 +151,7 @@ namespace recv_net
 		{
 			try
 			{
+				const uint CS_GLOBALCLASS = 0x4000;
 				// ウィンドウクラス登録
 				WNDCLASSEX wcex = new WNDCLASSEX();
 				wcex.cbSize = Marshal.SizeOf(wcex);
@@ -158,14 +159,14 @@ namespace recv_net
 					(int)Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().ManifestModule);
 				wcex.lpszClassName = ClassName;
 				wcex.lpfnWndProc = MsgFromSATORI_WndProc;
-				wcex.style = 0;
-				wcex.hIcon = 0;
-				wcex.hIconSm = 0;
-				wcex.hCursor = 0;
+				wcex.style = CS_GLOBALCLASS;
+				wcex.hIcon = IntPtr.Zero;
+				wcex.hIconSm = IntPtr.Zero;
+				wcex.hCursor = IntPtr.Zero;
 				wcex.lpszMenuName = 0;
 				wcex.cbClsExtra = 0;
 				wcex.cbWndExtra = 0;
-				wcex.hbrBackground = 0;
+				wcex.hbrBackground = IntPtr.Zero;
 				int a = RegisterClassEx(ref wcex);
 
 				// ウィンドウ作成
