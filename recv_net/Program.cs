@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace recv_net
@@ -7,7 +6,7 @@ namespace recv_net
 	static class Program
 	{
 		// ウィンドウクラスの名前
-		private const String ClassName = "れしば";
+		private const string ClassName = "れしば";
 
 		/// <summary>
 		/// アプリケーションのメイン エントリ ポイントです。

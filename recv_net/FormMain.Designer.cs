@@ -61,9 +61,9 @@
 			// menuStripMain
 			// 
 			this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_File,
-            this.ToolStripMenuItem_Edit,
-            this.ToolStripMenuItem_Config});
+			this.ToolStripMenuItem_File,
+			this.ToolStripMenuItem_Edit,
+			this.ToolStripMenuItem_Config});
 			this.menuStripMain.Location = new System.Drawing.Point(0, 0);
 			this.menuStripMain.Name = "menuStripMain";
 			this.menuStripMain.Size = new System.Drawing.Size(584, 26);
@@ -73,9 +73,9 @@
 			// ToolStripMenuItem_File
 			// 
 			this.ToolStripMenuItem_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_Save,
-            this.ToolStripMenuItem_Sep1,
-            this.ToolStripMenuItem_Close});
+			this.ToolStripMenuItem_Save,
+			this.ToolStripMenuItem_Sep1,
+			this.ToolStripMenuItem_Close});
 			this.ToolStripMenuItem_File.Name = "ToolStripMenuItem_File";
 			this.ToolStripMenuItem_File.Size = new System.Drawing.Size(85, 22);
 			this.ToolStripMenuItem_File.Text = "ファイル(&F)";
@@ -104,8 +104,8 @@
 			// ToolStripMenuItem_Edit
 			// 
 			this.ToolStripMenuItem_Edit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_Clear,
-            this.ToolStripMenuItem_Update});
+			this.ToolStripMenuItem_Clear,
+			this.ToolStripMenuItem_Update});
 			this.ToolStripMenuItem_Edit.Name = "ToolStripMenuItem_Edit";
 			this.ToolStripMenuItem_Edit.Size = new System.Drawing.Size(61, 22);
 			this.ToolStripMenuItem_Edit.Text = "編集(&E)";
@@ -129,10 +129,10 @@
 			// ToolStripMenuItem_Config
 			// 
 			this.ToolStripMenuItem_Config.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItem_Pause,
-            this.ToolStripMenuItem_RecieveCondition,
-            this.ToolStripMenuItem_Sep2,
-            this.ToolStripMenuItem_TopMost});
+			this.ToolStripMenuItem_Pause,
+			this.ToolStripMenuItem_RecieveCondition,
+			this.ToolStripMenuItem_Sep2,
+			this.ToolStripMenuItem_TopMost});
 			this.ToolStripMenuItem_Config.Name = "ToolStripMenuItem_Config";
 			this.ToolStripMenuItem_Config.Size = new System.Drawing.Size(62, 22);
 			this.ToolStripMenuItem_Config.Text = "設定(&C)";

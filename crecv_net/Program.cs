@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
 using recv_net;
 
@@ -19,14 +17,13 @@ namespace crecv_net
 	class Program
 	{
 		// ウィンドウクラスの名前
-		private const String ClassName = "れしば";
+		private const string ClassName = "れしば";
 		// 里々からのメッセージ受信処理オブジェクト
 		private ClassResv RecvObj = new ClassResv();
 
 		// Win32 APIであるSetConsoleCtrlHandler関数の宣言
 		[DllImport("Kernel32")]
-		static extern bool
-			SetConsoleCtrlHandler(HandlerRoutine Handler, bool Add);
+		static extern bool SetConsoleCtrlHandler(HandlerRoutine Handler, bool Add);
 
 		// SetConsoleCtrlHandler関数にメソッド（ハンドラ・ルーチン）を
 		// 渡すためのデリゲート型
@@ -53,8 +50,7 @@ namespace crecv_net
 			return false;
 		}
 
-		private void RecvObj_RecvInfoEvt(
-		System.Object sender, ClassResv.RecvInfEventArgs e)
+		private void RecvObj_RecvInfoEvt(object sender, ClassResv.RecvInfEventArgs e)
 		{
 			// 里々のログを表示
 			Console.Write(e.RecvInf);
