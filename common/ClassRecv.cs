@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace recv_net
 {
-    class ClassResv
+	class ClassResv
 	{
 		// 里々からの情報を送信するイベントの定義
 		public class RecvInfEventArgs : EventArgs
@@ -28,63 +28,65 @@ namespace recv_net
 		private const string ClassName = "れしば";
 
 		// ウィンドウクラス登録API
-		private delegate int D_WNDPROC(int hWnd, int wMsg, int wParam, int lParam);
-		[StructLayout(LayoutKind.Sequential)]
+		private delegate IntPtr D_WNDPROC(IntPtr hWnd, uint wMsg, IntPtr wParam, IntPtr lParam);
+		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
 		private struct WNDCLASSEX
 		{
 			public int cbSize;              // 構造体サイズ
 			public uint style;               // スタイル
-			public D_WNDPROC lpfnWndProc;   // ウィンドウ処理関数
+			public IntPtr lpfnWndProc;   // ウィンドウ処理関数
 			public int cbClsExtra;          // 拡張情報1
 			public int cbWndExtra;          // 拡張情報2
-			public int hInstance;           // インスタンのスハンドル
+			public IntPtr hInstance;           // インスタンのスハンドル
 			public IntPtr hIcon;               // アイコンのハンドル
 			public IntPtr hCursor;             // カーソルのハンドル
 			public IntPtr hbrBackground;       // ウィンドウ背景のハンドル
-			public int lpszMenuName;        // メニューの名前
+			public string lpszMenuName;        // メニューの名前
 			public string lpszClassName;    // ウィンドウクラスの名前
 			public IntPtr hIconSm;             // 小さいアイコンのハンドル
 		};
-		[DllImport("user32.dll", EntryPoint = "RegisterClassExA")]
-		private static extern int RegisterClassEx(ref WNDCLASSEX wcex);
+		[DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "RegisterClassExW")]
+		private static extern ushort RegisterClassEx(ref WNDCLASSEX wcex);
 
 		// ウィンドウ作成API
-		[DllImport("user32.dll", EntryPoint = "CreateWindowExA")]
-		private static extern int CreateWindowEx(
-			int dwExStyle, string lpClassName,
-            string lpWindowName, int dwStyle,
-			int X, int Y, int nWidth, int nHeight,
-			int hWndParent, int hMenu,
-			int hInstance, int lpParam);
+		[DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "CreateWindowEx")]
+		private static extern IntPtr CreateWindowEx(
+			int dwExStyle,
+			string lpClassName,
+			string lpWindowName,
+			uint dwStyle,
+			int X,
+			int Y,
+			int nWidth,
+			int nHeight,
+			IntPtr hWndParent,
+			IntPtr hMenu,
+			IntPtr hInstance,
+			IntPtr lpParam);
 
 		// ウィンドウ破棄API
 		[DllImport("user32.dll")]
-		private static extern int DestroyWindow(int hWnd);
+		private static extern IntPtr DestroyWindow(IntPtr hWnd);
 
 		// メッセージ取得API
-		[DllImport("user32.dll", EntryPoint = "GetMessageA")]
-		private static extern int GetMessage(
-			ref Message lpMsg, int hWnd,
-			int wMsgFilterMin, int wMsgFilterMax);
+		[DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "GetMessageW")]
+		private static extern IntPtr GetMessage(ref Message lpMsg, IntPtr hWnd, int wMsgFilterMin, int wMsgFilterMax);
 
 		// ウィンドウプロシージャへのメッセージ送信API
-		[DllImport("user32.dll")]
-		private static extern int TranslateMessage(ref Message lpMsg);
-		[DllImport("user32.dll", EntryPoint = "DispatchMessageA")]
-		private static extern int DispatchMessage(ref Message lpMsg);
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		private static extern IntPtr TranslateMessage(ref Message lpMsg);
+		[DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "DispatchMessageW")]
+		private static extern IntPtr DispatchMessage(ref Message lpMsg);
 
 		// デフォルトのメッセージ処理API
-		[DllImport("user32.dll", EntryPoint = "DefWindowProcA")]
-		private static extern int DefWindowProc(
-			int hWnd, int wMsg, int wParam, int lParam);
+		[DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "DefWindowProcW")]
+		private static extern IntPtr DefWindowProc(IntPtr hWnd, uint wMsg, IntPtr wParam, IntPtr lParam);
 
 		// メッセージ送信API
-		[DllImport("user32.dll", EntryPoint = "SendMessageA")]
-		private static extern int SendMessage(
-			int hWnd, int wMsg, int wParam, int lParam);
-		[DllImport("user32.dll", EntryPoint = "PostMessageA")]
-		private static extern int PostMessage(
-			int hWnd, int wMsg, int wParam, int lParam);
+		[DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "SendMessageW")]
+		private static extern IntPtr SendMessage(IntPtr hWnd, uint wMsg, IntPtr wParam, IntPtr lParam);
+		[DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "PostMessageW")]
+		private static extern IntPtr PostMessage(IntPtr hWnd, uint wMsg, IntPtr wParam, IntPtr lParam);
 
 		// ウィンドウ・メッセージの定義
 		private const int WM_NULL = 0x0;
@@ -110,7 +112,7 @@ namespace recv_net
 		private Thread MsgFromSATORI_Thread = null;
 
 		// ウィンドウクラスのハンドル
-		private int MsgFromSATORI_hWnd = 0;
+		private IntPtr MsgFromSATORI_hWnd = IntPtr.Zero;
 
 		// 里々からのメッセージ受信処理開始
 		public void Start_GetMsgFromSATORI()
@@ -135,9 +137,9 @@ namespace recv_net
 		{
 			try
 			{
-				if (MsgFromSATORI_hWnd != 0)
+				if (MsgFromSATORI_hWnd != IntPtr.Zero)
 				{
-					SendMessage(MsgFromSATORI_hWnd, WM_DESTROY, 0, 0);
+					SendMessage(MsgFromSATORI_hWnd, WM_DESTROY, IntPtr.Zero, IntPtr.Zero);
 				}
 			}
 			catch (Exception ex)
@@ -155,33 +157,32 @@ namespace recv_net
 				// ウィンドウクラス登録
 				WNDCLASSEX wcex = new WNDCLASSEX();
 				wcex.cbSize = Marshal.SizeOf(wcex);
-				wcex.hInstance =
-					(int)Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().ManifestModule);
+				wcex.hInstance = Marshal.GetHINSTANCE(Assembly.GetExecutingAssembly().ManifestModule);
 				wcex.lpszClassName = ClassName;
-				wcex.lpfnWndProc = MsgFromSATORI_WndProc;
+				wcex.lpfnWndProc = Marshal.GetFunctionPointerForDelegate(MsgFromSATORI_WndProc);
 				wcex.style = CS_GLOBALCLASS;
 				wcex.hIcon = IntPtr.Zero;
 				wcex.hIconSm = IntPtr.Zero;
 				wcex.hCursor = IntPtr.Zero;
-				wcex.lpszMenuName = 0;
+				wcex.lpszMenuName = "";
 				wcex.cbClsExtra = 0;
 				wcex.cbWndExtra = 0;
 				wcex.hbrBackground = IntPtr.Zero;
-				int a = RegisterClassEx(ref wcex);
+				ushort a = RegisterClassEx(ref wcex);
 
 				// ウィンドウ作成
 				MsgFromSATORI_hWnd =
 					CreateWindowEx(0, wcex.lpszClassName, wcex.lpszClassName,
-					0, 0, 0, 0, 0, 0, 0, wcex.hInstance, 0);
+					0, 0, 0, 0, 0, IntPtr.Zero, IntPtr.Zero, wcex.hInstance, IntPtr.Zero);
 
-				if (MsgFromSATORI_hWnd != 0)
+				if (MsgFromSATORI_hWnd != IntPtr.Zero)
 				{
 					// メッセージ取得
 					int rtn;
 					Message mmm = new Message();
 					while (true)
 					{
-						rtn = GetMessage(ref mmm, MsgFromSATORI_hWnd, 0, 0);
+						rtn = (int)GetMessage(ref mmm, MsgFromSATORI_hWnd, 0, 0);
 						if (rtn <= 0) break;
 						// ウィンドウプロシージャへのメッセージ送信
 						try { TranslateMessage(ref mmm); }
@@ -198,12 +199,12 @@ namespace recv_net
 				try { DestroyWindow(MsgFromSATORI_hWnd); }
 				catch (Exception) { }
 				// ウィンドウクラスのハンドル初期化
-				MsgFromSATORI_hWnd = 0;
+				MsgFromSATORI_hWnd = IntPtr.Zero;
 			}
 		}
 
 		// カスタマイズしたウィンドウ処理関数
-		private int MyWndProc(int hWnd, int wMsg, int wParam, int lParam)
+		private IntPtr MyWndProc(IntPtr hWnd, uint wMsg, IntPtr wParam, IntPtr lParam)
 		{
 			try
 			{
@@ -212,7 +213,7 @@ namespace recv_net
 					case WM_COPYDATA:
 						string str = "";
 						COPYDATASTRUCT cds = new COPYDATASTRUCT();
-						cds = (COPYDATASTRUCT)Marshal.PtrToStructure((IntPtr)lParam, typeof(COPYDATASTRUCT));
+						cds = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, typeof(COPYDATASTRUCT));
 						if (cds.cbData > 0)
 						{
 							byte[] data = new byte[cds.cbData];
@@ -223,9 +224,9 @@ namespace recv_net
 						RecvInfEventArgs e = new RecvInfEventArgs();
 						e.RecvInf = str;
 						OnRecvEvt(e);
-						return 0;
+						return IntPtr.Zero;
 					case WM_DESTROY:
-						PostMessage(hWnd, WM_QUIT, 0, 0);
+						PostMessage(hWnd, WM_QUIT, IntPtr.Zero, IntPtr.Zero);
 						break;
 					case WM_CLOSE:
 						break;
@@ -238,7 +239,7 @@ namespace recv_net
 				return DefWindowProc(hWnd, wMsg, wParam, lParam);
 			}
 			catch (Exception) { }
-			return 0;
+			return IntPtr.Zero;
 		}
 	}
 }
