@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  workflow_dispatch:
+    
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Build app for release
+        run: |
+          msbuild recv_net/recv_net.csproj -t:rebuild -property:Configuration=Release
+          msbuild crecv_net/crecv_net.csproj -t:rebuild -property:Configuration=Release
+
+      - name: Prepare for Upload
+        run: |
+          mkdir Release
+          move recv_net/bin/Release/recv_net.exe Release
+          move crecv_net/bin/Release/crecv_net.exe Release
+          copy readme.txt Release/readme.txt
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: recv_net
+          path: Release
